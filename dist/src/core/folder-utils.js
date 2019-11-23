@@ -6,8 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
 class FolderUtils {
-    static createFolder(outDir, folderName) {
-        fs_1.default.mkdirSync(path_1.default.join(outDir, folderName), {
+    static createFolder(folderName) {
+        fs_1.default.mkdirSync(path_1.default.join(global.outDir, folderName), {
             recursive: true,
         });
     }

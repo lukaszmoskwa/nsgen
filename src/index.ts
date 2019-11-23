@@ -22,6 +22,7 @@ if (argv.v) {
   console.log(chalk.bold('nsgen') + ' version ' + APP_VERSION);
   process.exit(1);
 }
+global.configuration = {};
 global.outDir = argv.path ? (argv.path as string) : process.cwd();
 
 if (argv.config) {

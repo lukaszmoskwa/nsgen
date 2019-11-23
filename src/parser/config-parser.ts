@@ -4,12 +4,21 @@ import { IDBConfig, IProjectConfig, TSConfigObject } from '../utils';
 
 class ConfigParser {
   public static parse(config: IProjectConfig): void {
+    global.configuration.config = config;
+    ConfigParser.initializeFiles(config.db);
+  }
+
+  public static typeMap(config: IProjectConfig): IProjectConfig {
+    return config;
+  }
+
+  private static initializeFiles(db: IDBConfig) {
     // Create the 'config' folder
-    FolderUtils.createFolder(outDir, 'config');
+    FolderUtils.createFolder('config');
     // Create the index.ts
-    this.createConfigIndex(config.db);
+    this.createConfigIndex(db);
     // Create .env
-    this.createDotEnv(config.db);
+    this.createDotEnv(db);
     // Create a tsconfig.json
     this.createTSConfig();
   }

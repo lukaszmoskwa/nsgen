@@ -8,6 +8,8 @@ export const packageDepencencies = {
   dotenv: '^8.2.0',
 };
 
+export const devDependecies = {};
+
 export const gitignoreList = ['node_modules/', 'package-lock.json'];
 
 export const TSConfigObject = {
@@ -33,6 +35,18 @@ export interface IProjectConfig {
   name?: string;
   description?: string;
 }
+
+export interface IModelValueConfig {
+  name: string;
+  class?: string;
+}
+
+export interface IModelTableConfig {
+  name: string;
+  values: IModelValueConfig[];
+}
+
 export interface IConfigurationFile {
   config?: IProjectConfig;
+  model?: IModelTableConfig[];
 }

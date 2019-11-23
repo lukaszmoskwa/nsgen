@@ -8,12 +8,19 @@ const folder_utils_1 = __importDefault(require("../core/folder-utils"));
 const utils_1 = require("../utils");
 class ConfigParser {
     static parse(config) {
+        global.configuration.config = config;
+        ConfigParser.initializeFiles(config.db);
+    }
+    static typeMap(config) {
+        return config;
+    }
+    static initializeFiles(db) {
         // Create the 'config' folder
-        folder_utils_1.default.createFolder(outDir, 'config');
+        folder_utils_1.default.createFolder('config');
         // Create the index.ts
-        this.createConfigIndex(config.db);
+        this.createConfigIndex(db);
         // Create .env
-        this.createDotEnv(config.db);
+        this.createDotEnv(db);
         // Create a tsconfig.json
         this.createTSConfig();
     }
