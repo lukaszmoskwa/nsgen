@@ -1,0 +1,23 @@
+{
+  "name": "nsgen",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/app.js",
+  "scripts": {
+    "start": "tsc && node dist/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Lykos94",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^3.0.0",
+    "tslint": "^5.20.1",
+    "typescript": "^3.7.2",
+    "yamljs": "^0.3.0",
+    "yargs": "^15.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^12.12.11",
+    "@types/yargs": "^13.0.3"
+  }
+}
