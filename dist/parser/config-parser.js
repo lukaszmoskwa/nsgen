@@ -31,7 +31,7 @@ class ConfigParser {
      */
     static createConfigIndex(db) {
         file_utils_1.default.createFile('config/index.ts', function () {
-            this.write('import dotenv from "dotenv";\n\n');
+            this.write('import * as dotenv from "dotenv";\n\n');
             this.write('dotenv.config();\n\n');
             this.write('export default {\n');
             for (const key of Object.keys(db)) {

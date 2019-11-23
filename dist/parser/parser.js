@@ -10,18 +10,18 @@ const model_parser_1 = __importDefault(require("./model-parser"));
 class Parser {
     constructor(configObject) {
         this.configObject = configObject;
-        /*this.initializeFiles(configObject.config);
+        this.initializeFiles(configObject.config);
         const parsersObject = this.getParsers();
         for (const param of Object.keys(parsersObject)) {
-          this.configObject[param] = parsersObject[param].typeMap(
-            this.configObject[param],
-          );
-          parsersObject[param].parse(this.configObject[param]);
-        }*/
-        const parsersObject = this.getParsers();
-        this.configObject.model = parsersObject.model.typeMap(this.configObject.model);
+            this.configObject[param] = parsersObject[param].typeMap(this.configObject[param]);
+            parsersObject[param].parse(this.configObject[param]);
+        }
+        /*const parsersObject = this.getParsers();
+        this.configObject.model = parsersObject.model.typeMap(
+          this.configObject.model,
+        );
         console.log(JSON.stringify(this.configObject.model));
-        parsersObject.model.parse(this.configObject.model);
+        parsersObject.model.parse(this.configObject.model);*/
     }
     getParsers() {
         return {

@@ -6,6 +6,8 @@ declare global {
 
 export const packageDepencencies = {
   dotenv: '^8.2.0',
+  mysql2: '^2.0.1',
+  sequelize: '^5.19.3',
 };
 
 export const devDependecies = {};
@@ -25,7 +27,7 @@ export const TSConfigObject = {
 };
 
 export interface IDBConfig {
-  dbname: string;
+  name: string;
   username: string;
   password: string;
   type: string;
