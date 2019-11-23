@@ -2,6 +2,17 @@ import fs from 'fs';
 import path from 'path';
 
 class FileUtils {
+  public static createJSONFile(
+    outDir: string,
+    filename: string,
+    JSONobject: {},
+  ) {
+    fs.writeFileSync(
+      path.join(outDir, filename),
+      JSON.stringify(JSONobject, null, 4),
+    );
+  }
+
   public static createFile(
     outDir: string,
     filename: string,

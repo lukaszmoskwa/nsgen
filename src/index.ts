@@ -1,5 +1,5 @@
 import chalk from 'chalk';
-import fs, { PathLike } from 'fs';
+import fs from 'fs';
 import yamljs from 'yamljs';
 import yargs from 'yargs';
 import Parser from './parser/parser';
@@ -23,11 +23,11 @@ if (argv.v) {
   process.exit(1);
 }
 
-const outDir: PathLike = argv.path ? (argv.path as PathLike) : process.cwd();
+const outDir: string = argv.path ? (argv.path as string) : process.cwd();
 
 if (argv.config) {
   try {
-    const filename: PathLike = argv.config as PathLike;
+    const filename: string = argv.config as string;
     if (fs.existsSync(filename)) {
       const configFile: IConfigurationFile = yamljs.load(filename);
       console.log(configFile);

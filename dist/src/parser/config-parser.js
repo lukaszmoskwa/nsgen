@@ -5,55 +5,31 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const file_utils_1 = __importDefault(require("../core/file-utils"));
 const folder_utils_1 = __importDefault(require("../core/folder-utils"));
-const utils_1 = require("../utils");
 class ConfigParser {
     static parse(config, outDir) {
         // Create the 'config' folder
         folder_utils_1.default.createFolder(outDir, 'config');
         // Create the index.ts
-        this.createConfigIndex(config.db, outDir);
-        // Create .env
-        this.createDotEnv(config.db, outDir);
-        // Create a tsconfig.json
-        this.createTSConfig(outDir);
-    }
-    /**
-     * Creates a 'index.ts' file in the 'config' folder
-     * @param db DBconfig elements
-     * @param outDir Root directory fo the new project
-     */
-    static createConfigIndex(db, outDir) {
         file_utils_1.default.createFile(outDir, 'config/index.ts', function () {
             this.write('import dotenv from "dotenv";\n\n');
             this.write('dotenv.config();\n\n');
             this.write('export default {\n');
-            for (const key of Object.keys(db)) {
-                this.write(`\tdb_${key}: process.env.DB_${key.toUpperCase()},\n`);
+            for (const key of Object.keys(config.db)) {
+                this.write(`db_${key}: process.env.DB_${key.toUpperCase()},\n`);
             }
             this.write('}');
             this.end();
         });
-    }
-    /**
-     * Creates a '.env' file in the root folder of the new project
-     * @param db DBconfig elements
-     * @param outDir Root directory for the new project
-     */
-    static createDotEnv(db, outDir) {
+        // Create .env
         file_utils_1.default.createFile(outDir, '.env', function () {
+            const db = config.db;
             for (const key of Object.keys(db)) {
                 this.write(`# ${key}\n`);
                 this.write(`DB_${key.toUpperCase()}=${db[key]}\n\n`);
             }
             this.end();
         });
-    }
-    /**
-     * Cretaes a tsconfig.json in the root folder of the new project
-     * @param outDir Root directory for the new project
-     */
-    static createTSConfig(outDir) {
-        file_utils_1.default.createJSONFile(outDir, 'tsconfig.json', utils_1.TSConfigObject);
+        console.log('envvv');
     }
 }
 exports.default = ConfigParser;

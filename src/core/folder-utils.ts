@@ -1,4 +1,4 @@
-import fs, { PathLike } from 'fs';
+import fs from 'fs';
 import path from 'path';
 
 class FolderUtils {
