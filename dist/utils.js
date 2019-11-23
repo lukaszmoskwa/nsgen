@@ -4,6 +4,7 @@ exports.APP_VERSION = '0.0.1';
 exports.packageDepencencies = {
     dotenv: '^8.2.0',
 };
+exports.gitignoreList = ['node_modules/', 'package-lock.json'];
 exports.TSConfigObject = {
     compilerOptions: {
         esModuleInterop: true,

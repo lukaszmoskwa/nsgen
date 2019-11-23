@@ -1,8 +1,14 @@
 export const APP_VERSION = '0.0.1';
 
+declare global {
+  let outDir: string;
+}
+
 export const packageDepencencies = {
   dotenv: '^8.2.0',
 };
+
+export const gitignoreList = ['node_modules/', 'package-lock.json'];
 
 export const TSConfigObject = {
   compilerOptions: {

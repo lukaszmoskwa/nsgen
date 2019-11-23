@@ -3,6 +3,9 @@
     "extends": [
         "tslint:recommended"
     ],
+    "files": [
+        "src/types.d.ts"
+    ],
     "jsRules": {},
     "rules": {
         "no-console": false,

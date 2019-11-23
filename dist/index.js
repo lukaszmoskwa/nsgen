@@ -25,14 +25,14 @@ if (argv.v) {
     console.log(chalk_1.default.bold('nsgen') + ' version ' + utils_1.APP_VERSION);
     process.exit(1);
 }
-const outDir = argv.path ? argv.path : process.cwd();
+global.outDir = argv.path ? argv.path : process.cwd();
 if (argv.config) {
     try {
         const filename = argv.config;
         if (fs_1.default.existsSync(filename)) {
             const configFile = yamljs_1.default.load(filename);
             console.log(configFile);
-            const parser = new parser_1.default(configFile, outDir);
+            const parser = new parser_1.default(configFile);
         }
     }
     catch (err) {

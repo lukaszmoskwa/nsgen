@@ -22,8 +22,7 @@ if (argv.v) {
   console.log(chalk.bold('nsgen') + ' version ' + APP_VERSION);
   process.exit(1);
 }
-
-const outDir: string = argv.path ? (argv.path as string) : process.cwd();
+global.outDir = argv.path ? (argv.path as string) : process.cwd();
 
 if (argv.config) {
   try {
@@ -31,7 +30,7 @@ if (argv.config) {
     if (fs.existsSync(filename)) {
       const configFile: IConfigurationFile = yamljs.load(filename);
       console.log(configFile);
-      const parser = new Parser(configFile, outDir);
+      const parser = new Parser(configFile);
     }
   } catch (err) {
     console.error(err);

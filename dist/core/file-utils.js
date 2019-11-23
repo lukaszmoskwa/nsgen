@@ -6,11 +6,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
 class FileUtils {
-    static createJSONFile(outDir, filename, JSONobject) {
-        fs_1.default.writeFileSync(path_1.default.join(outDir, filename), JSON.stringify(JSONobject, null, 4));
+    static createJSONFile(filename, JSONobject) {
+        fs_1.default.writeFileSync(path_1.default.join(global.outDir, filename), JSON.stringify(JSONobject, null, 4));
     }
-    static createFile(outDir, filename, fn) {
-        const stream = fs_1.default.createWriteStream(path_1.default.join(outDir, filename));
+    static createFile(filename, fn) {
+        const stream = fs_1.default.createWriteStream(path_1.default.join(global.outDir, filename));
         fn = fn.bind(stream);
         stream.once('open', fn);
     }
