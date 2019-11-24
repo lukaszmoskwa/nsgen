@@ -1,14 +1,21 @@
 {
   "name": "nsgen",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.0.1",
+  "description": "A project structure generator for your NodeJS backend, based on your configurations and common best-practices",
   "main": "dist/app.js",
+  "bin": {
+    "nsgen": "./dist/index.js"
+  },
   "scripts": {
     "start": "tsc && node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Lykos94",
-  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lykos94/nsgen"
+  },
+  "author": "lykos94",
+  "license": "GPLv3",
   "dependencies": {
     "chalk": "^3.0.0",
     "tslint": "^5.20.1",

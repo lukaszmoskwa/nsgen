@@ -17,6 +17,8 @@ const argv = yargs_1.default
     // .alias('c', 'config')
     .nargs('config', 1)
     .describe('config', 'Load a configuration file')
+    .nargs('path', 1)
+    .describe('path', 'Choose an output folder for your project different than the current one')
     // .demandOption(['config'])
     .help('h')
     .alias('h', 'help')
@@ -32,7 +34,6 @@ if (argv.config) {
         const filename = argv.config;
         if (fs_1.default.existsSync(filename)) {
             const configFile = yamljs_1.default.load(filename);
-            console.log(configFile);
             const parser = new parser_1.default(configFile);
         }
     }

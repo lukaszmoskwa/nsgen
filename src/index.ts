@@ -6,17 +6,23 @@ import Parser from './parser/parser';
 import { APP_VERSION, IConfigurationFile } from './utils';
 
 // Get args from command line
-const argv = yargs
-  .usage('Usage: $0 <command> [options]')
-  // .command('config', 'Count the lines in a file')
-  // .example('$0 count -f foo.js', 'count the lines in the given file')
-  // .alias('c', 'config')
-  .nargs('config', 1)
-  .describe('config', 'Load a configuration file')
-  // .demandOption(['config'])
-  .help('h')
-  .alias('h', 'help')
-  .epilog('Check the full documentation at https://adasd.com').argv;
+const argv =
+  // .epilog('Check the full documentation at https://<link>.com')
+  yargs
+    .usage('Usage: $0 <command> [options]')
+    // .command('config', 'Count the lines in a file')
+    // .example('$0 count -f foo.js', 'count the lines in the given file')
+    // .alias('c', 'config')
+    .nargs('config', 1)
+    .describe('config', 'Load a configuration file')
+    .nargs('path', 1)
+    .describe(
+      'path',
+      'Choose an output folder for your project different than the current one',
+    )
+    // .demandOption(['config'])
+    .help('h')
+    .alias('h', 'help').argv;
 
 if (argv.v) {
   console.log(chalk.bold('nsgen') + ' version ' + APP_VERSION);
@@ -30,7 +36,6 @@ if (argv.config) {
     const filename: string = argv.config as string;
     if (fs.existsSync(filename)) {
       const configFile: IConfigurationFile = yamljs.load(filename);
-      console.log(configFile);
       const parser = new Parser(configFile);
     }
   } catch (err) {
@@ -39,5 +44,3 @@ if (argv.config) {
 } else {
   console.log(chalk.bold.red('Missing configuration file!'));
 }
-
-// const m_file = new Parser('documentation/nsgen/mkdocs.yml');

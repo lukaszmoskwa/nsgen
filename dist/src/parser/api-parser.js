@@ -72,11 +72,11 @@ class ApiParser {
         // Create a route file for every api
         for (const api of apis) {
             file_utils_1.default.createFile(`api/${api.endpoint}.ts`, function () {
-                this.write(`import { Request, Response, Router, Express } from 'express';\n
-          const seq = require('../sequelize');\n`);
+                this.write(`import { Request, Response, Router, Express } from 'express';\n`);
+                this.write(`const seq = require('../sequelize');\n`);
                 if (api.model) {
                     const modelName = api.model.name[0].toUpperCase() + api.model.name.slice(1);
-                    this.write(`const ${modelName} = seq.default.${modelName}';\n`);
+                    this.write(`const ${modelName} = seq.default.${modelName};\n`);
                 }
                 this.write('const router = Router();\n\n');
                 for (const method of api.methods) {
@@ -96,7 +96,7 @@ class ApiParser {
                     }
                     else {
                         this.write('\n\t// Write here your code\n\n');
-                        this.write('\n\treturn res.status(200).json({message: "ok"});\n\n');
+                        this.write('\n\treturn res.status(200).json({message: "http-Method not yet implemented"});\n\n');
                     }
                     this.write('});\n\n');
                 }

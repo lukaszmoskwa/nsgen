@@ -104,8 +104,7 @@ class ApiParser {
             `router.${method.type}('/', async (req: Request, res: Response) => {\n`,
           );
           if (api.model) {
-            this.write(`
-        try {
+            this.write(`\ttry {
             const body = req.body;
             ${ApiParser.getMethodString(method.type, api.model)}
             return res.status(200).json(result);
@@ -116,9 +115,9 @@ class ApiParser {
             });
         }\n`);
           } else {
-            this.write('\n\t// Write here your code\n\n');
+            this.write('\t// Write here your code\n');
             this.write(
-              '\n\treturn res.status(200).json({message: "http-Method not yet implemented"});\n\n',
+              '\treturn res.status(200).json({message: "http-Method not yet implemented"});\n',
             );
           }
           this.write('});\n\n');
