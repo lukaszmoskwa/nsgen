@@ -8,6 +8,7 @@ const folder_utils_1 = __importDefault(require("../core/folder-utils"));
 const utils_1 = require("../utils");
 class ConfigParser {
     static parse(config) {
+        global.configuration.config = config;
         ConfigParser.initializeFiles(config.db);
     }
     static typeMap(config) {
@@ -30,7 +31,7 @@ class ConfigParser {
      */
     static createConfigIndex(db) {
         file_utils_1.default.createFile('config/index.ts', function () {
-            this.write('import dotenv from "dotenv";\n\n');
+            this.write('import * as dotenv from "dotenv";\n\n');
             this.write('dotenv.config();\n\n');
             this.write('export default {\n');
             for (const key of Object.keys(db)) {

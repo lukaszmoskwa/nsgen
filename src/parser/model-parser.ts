@@ -94,7 +94,7 @@ class ModelParser {
       this.write(`\n\nsequelize
         .sync({
           force: true
-        })\n\n`);
+        });\n\n`);
       this.write(`export default {\n`);
       for (const table of tables) {
         this.write(`${table.name[0].toUpperCase() + table.name.slice(1)},\n`);

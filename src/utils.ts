@@ -6,6 +6,7 @@ declare global {
 
 export const packageDepencencies = {
   dotenv: '^8.2.0',
+  express: '^4.17.1',
   mysql2: '^2.0.1',
   sequelize: '^5.19.3',
 };
@@ -48,7 +49,18 @@ export interface IModelTableConfig {
   values: IModelValueConfig[];
 }
 
+export interface IApiMethodsConfig {
+  type: string;
+}
+
+export interface IApiConfig {
+  endpoint: string;
+  model: IModelTableConfig;
+  methods: IApiMethodsConfig[];
+}
+
 export interface IConfigurationFile {
   config?: IProjectConfig;
   model?: IModelTableConfig[];
+  api?: IApiConfig[];
 }

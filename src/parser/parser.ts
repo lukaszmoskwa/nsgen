@@ -5,6 +5,7 @@ import {
   IProjectConfig,
   packageDepencencies,
 } from '../utils';
+import ApiParser from './api-parser';
 import ConfigParser from './config-parser';
 import ModelParser from './model-parser';
 
@@ -12,22 +13,17 @@ class Parser {
   constructor(private configObject: IConfigurationFile) {
     this.initializeFiles(configObject.config);
     const parsersObject = this.getParsers();
-    for (const param of Object.keys(parsersObject)) {
+    for (const param of ['config', 'model', 'api']) {
       this.configObject[param] = parsersObject[param].typeMap(
         this.configObject[param],
       );
       parsersObject[param].parse(this.configObject[param]);
     }
-    /*const parsersObject = this.getParsers();
-    this.configObject.model = parsersObject.model.typeMap(
-      this.configObject.model,
-    );
-    console.log(JSON.stringify(this.configObject.model));
-    parsersObject.model.parse(this.configObject.model);*/
   }
 
   public getParsers() {
     return {
+      api: ApiParser,
       config: ConfigParser,
       model: ModelParser,
     };
@@ -40,6 +36,8 @@ class Parser {
     this.createGitIgnore();
     // Create the README.md
     this.createREADME();
+    // Create the main index.ts
+    this.createIndex();
   }
 
   /**
@@ -54,6 +52,22 @@ class Parser {
       version: '1.0.0',
     };
     FileUtils.createJSONFile('package.json', packageObject);
+  }
+
+  private createIndex() {
+    FileUtils.createFile('index.ts', function() {
+      this.write(`import express from 'express';\n`);
+      this.write(`import BaseRouter from './api';\n\n`);
+      this.write(`import config from './config';\n\n`);
+      this.write(`const app = express();\n\n`);
+      this.write(`app.use(express.json());\n\n`);
+      this.write(`app.use('/api', BaseRouter);\n\n`);
+      this.write(`const port = 3000;
+      app.listen(port, () => {
+          console.log('Express server started on port: ' + port);
+      });`);
+      this.end();
+    });
   }
 
   /**
