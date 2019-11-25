@@ -10,7 +10,9 @@ const yargs_1 = __importDefault(require("yargs"));
 const parser_1 = __importDefault(require("./parser/parser"));
 const utils_1 = require("./utils");
 // Get args from command line
-const argv = yargs_1.default
+const argv = 
+// .epilog('Check the full documentation at https://<link>.com')
+yargs_1.default
     .usage('Usage: $0 <command> [options]')
     // .command('config', 'Count the lines in a file')
     // .example('$0 count -f foo.js', 'count the lines in the given file')
@@ -21,8 +23,7 @@ const argv = yargs_1.default
     .describe('path', 'Choose an output folder for your project different than the current one')
     // .demandOption(['config'])
     .help('h')
-    .alias('h', 'help')
-    .epilog('Check the full documentation at https://adasd.com').argv;
+    .alias('h', 'help').argv;
 if (argv.v) {
     console.log(chalk_1.default.bold('nsgen') + ' version ' + utils_1.APP_VERSION);
     process.exit(1);
@@ -44,5 +45,4 @@ if (argv.config) {
 else {
     console.log(chalk_1.default.bold.red('Missing configuration file!'));
 }
-// const m_file = new Parser('documentation/nsgen/mkdocs.yml');
 //# sourceMappingURL=index.js.map
