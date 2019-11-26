@@ -13,7 +13,7 @@ export const packageDepencencies = {
 
 export const devDependecies = {};
 
-export const gitignoreList = ['node_modules/', 'package-lock.json'];
+export const gitignoreList = ['node_modules/', 'package-lock.json', '.env'];
 
 export const TSConfigObject = {
   compilerOptions: {

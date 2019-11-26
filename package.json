@@ -15,7 +15,7 @@
     "url": "git+https://github.com/Lykos94/nsgen"
   },
   "author": "lykos94",
-  "license": "GPLv3",
+  "license": "GPL-3.0-only",
   "dependencies": {
     "chalk": "^3.0.0",
     "tslint": "^5.20.1",
