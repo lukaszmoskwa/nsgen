@@ -1,13 +1,11 @@
 
 # Introducing NSGen
 
-<p style="text-align:center">
-<img style="background: #212121; border-radius: 16px " src="img/logo.png" width="120" height="120"/>
+<p align="center">
+<img style="background: #212121; border-radius: 16px " src="img/logo.png" width="180" height="180"/>
 </p>
 
-<p style="text-align:center;">
-<h2  style="text-align:center; margin-bottom: 60px;">A {==project structure generator==} for your NodeJS backend, based on your configurations and common best-practices </h2>
-</p>
+## A *project structure generator* for your NodeJS backend, based on your configurations and common best-practices
 
 You create a simple configuration file, NSGen takes care of creating an entire project based on express in NodeJS. Among other features, there are the following:
 
