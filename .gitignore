@@ -3,3 +3,4 @@ out/
 prova.yml
 package-lock.json
 yarn.lock
+coverage/

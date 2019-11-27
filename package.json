@@ -8,7 +8,8 @@
   },
   "scripts": {
     "start": "tsc && node dist/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "coverage": "jest --coverage"
   },
   "repository": {
     "type": "git",
@@ -24,7 +25,10 @@
     "yargs": "^15.0.2"
   },
   "devDependencies": {
+    "@types/jest": "^24.0.23",
     "@types/node": "^12.12.11",
-    "@types/yargs": "^13.0.3"
+    "@types/yargs": "^13.0.3",
+    "jest": "^24.9.0",
+    "ts-jest": "^24.2.0"
   }
 }

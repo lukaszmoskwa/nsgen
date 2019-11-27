@@ -2,3 +2,5 @@ src/
 out/
 node_modules/
 img/
+tests/
+coverage/
