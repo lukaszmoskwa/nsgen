@@ -1,6 +1,6 @@
 {
   "name": "@lykos94/nsgen",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A project structure generator for your NodeJS backend, based on your configurations and common best-practices",
   "main": "dist/index.js",
   "bin": {
