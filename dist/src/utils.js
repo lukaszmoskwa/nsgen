@@ -8,7 +8,7 @@ exports.packageDepencencies = {
     sequelize: '^5.19.3',
 };
 exports.devDependecies = {};
-exports.gitignoreList = ['node_modules/', 'package-lock.json'];
+exports.gitignoreList = ['node_modules/', 'package-lock.json', '.env'];
 exports.TSConfigObject = {
     compilerOptions: {
         esModuleInterop: true,

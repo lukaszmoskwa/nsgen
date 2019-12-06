@@ -41,7 +41,7 @@ export interface IProjectConfig {
 
 export interface IModelValueConfig {
   name: string;
-  class?: string;
+  class?: string | { type: string; check?: {} };
 }
 
 export interface IModelTableConfig {

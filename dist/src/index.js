@@ -45,4 +45,5 @@ if (argv.config) {
 else {
     console.log(chalk_1.default.bold.red('Missing configuration file!'));
 }
+function validateConfigFile() { }
 //# sourceMappingURL=index.js.map

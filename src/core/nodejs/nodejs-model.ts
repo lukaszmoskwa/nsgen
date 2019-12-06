@@ -24,6 +24,14 @@ class NodeJSModel {
     NodeJSModel.createSequelizeFile(tables);
   }
 
+  /**
+   * Creates the sequelize file:
+   * -  Imports all the table dependencies
+   * -  Creates the Sequelize object with all the dependencies
+   * -  Autheticates
+   * -  Creates the Models
+   * @param tables List of table to load
+   */
   private static createSequelizeFile(tables: IModelTableConfig[]) {
     FileUtils.createFile('sequelize.ts', function() {
       this.write('import { Sequelize, Dialect } from "sequelize";\n');
@@ -79,6 +87,10 @@ class NodeJSModel {
     });
   }
 
+  /**
+   * Creates an object starting from the values
+   * @param values Columns of each table
+   */
   private static objectFromValues(values: IModelValueConfig[]): string {
     const type: any = {};
     let finalObject = `{
@@ -88,7 +100,7 @@ class NodeJSModel {
             type: type.INTEGER,
           },\n`;
     for (const value of values) {
-      finalObject += `${value.name}: {
+      finalObject += `\t${value.name}: {
             type: ${NodeJSModel.getValueType(value.class)},
           }, \n`;
     }
@@ -96,35 +108,55 @@ class NodeJSModel {
     return finalObject;
   }
 
+  private static getValidationAttribute(attribute: {}) {
+    return JSON.stringify(attribute) + ',';
+  }
+
   /**
    * Retrieve the string corresponding to the type chosen by the user
    * Datatype link: https://sequelize.org/master/manual/data-types.html
    * @param className Object or String containg information about the type
    */
-  private static getValueType(className: any) {
-    if (className === 'string') {
-      return 'type.STRING';
+  private static getValueType(
+    className: string | { type: string; check?: {} },
+  ): string {
+    // let type: string;
+    let valueType: string;
+    const { type, check } = className as { type: string; check?: string };
+    if (type) {
+      valueType = `type.${type.toUpperCase()}`;
+      if (check) {
+        valueType += `,\n\tvalidate: {\n`;
+        for (const attribute of Object.keys(check)) {
+          valueType += `\t\t${attribute}: ${check[attribute]}, \n`;
+        }
+        valueType += '\t}\n';
+      }
+    } else {
+      valueType = `type.${(className as string).toUpperCase()}`;
     }
-    switch (className.type) {
+    // const type = className.type || (className as string);
+    return valueType;
+    /*switch (choice) {
       case 'number':
       case 'int':
       case 'integer':
-        return 'type.INTEGER';
+        valueType = 'type.INTEGER';
       case 'date':
-        return 'type.DATE';
+        valueType = 'type.DATE';
       case 'bool':
       case 'boolean':
-        return 'type.BOOLEAN';
+        valueType = 'type.BOOLEAN';
       case 'uuid':
-        return 'type.UUID';
+        valueType = 'type.UUID';
       case 'text':
-        return 'type.TEXT';
+        valueType = 'type.TEXT';
       case 'json':
         return 'type.JSON';
       case 'string':
       default:
-        return 'type.STRING';
-    }
+        valueType = 'type.STRING';
+    }*/
   }
 }
 

@@ -24,6 +24,14 @@ class NodeJSModel {
         // Create the sequelize file
         NodeJSModel.createSequelizeFile(tables);
     }
+    /**
+     * Creates the sequelize file:
+     * -  Imports all the table dependencies
+     * -  Creates the Sequelize object with all the dependencies
+     * -  Autheticates
+     * -  Creates the Models
+     * @param tables List of table to load
+     */
     static createSequelizeFile(tables) {
         file_utils_1.default.createFile('sequelize.ts', function () {
             this.write('import { Sequelize, Dialect } from "sequelize";\n');
@@ -70,6 +78,10 @@ class NodeJSModel {
             this.end();
         });
     }
+    /**
+     * Creates an object starting from the values
+     * @param values Columns of each table
+     */
     static objectFromValues(values) {
         const type = {};
         let finalObject = `{
@@ -79,12 +91,15 @@ class NodeJSModel {
             type: type.INTEGER,
           },\n`;
         for (const value of values) {
-            finalObject += `${value.name}: {
+            finalObject += `\t${value.name}: {
             type: ${NodeJSModel.getValueType(value.class)},
           }, \n`;
         }
         finalObject += '}';
         return finalObject;
+    }
+    static getValidationAttribute(attribute) {
+        return JSON.stringify(attribute) + ',';
     }
     /**
      * Retrieve the string corresponding to the type chosen by the user
@@ -92,29 +107,44 @@ class NodeJSModel {
      * @param className Object or String containg information about the type
      */
     static getValueType(className) {
-        if (className === 'string') {
-            return 'type.STRING';
+        // let type: string;
+        let valueType;
+        const { type, check } = className;
+        if (type) {
+            valueType = `type.${type.toUpperCase()}`;
+            if (check) {
+                valueType += `,\n\tvalidate: {\n`;
+                for (const attribute of Object.keys(check)) {
+                    valueType += `\t\t${attribute}: ${check[attribute]}, \n`;
+                }
+                valueType += '\t}\n';
+            }
         }
-        switch (className.type) {
-            case 'number':
-            case 'int':
-            case 'integer':
-                return 'type.INTEGER';
-            case 'date':
-                return 'type.DATE';
-            case 'bool':
-            case 'boolean':
-                return 'type.BOOLEAN';
-            case 'uuid':
-                return 'type.UUID';
-            case 'text':
-                return 'type.TEXT';
-            case 'json':
-                return 'type.JSON';
-            case 'string':
-            default:
-                return 'type.STRING';
+        else {
+            valueType = `type.${className.toUpperCase()}`;
         }
+        // const type = className.type || (className as string);
+        return valueType;
+        /*switch (choice) {
+          case 'number':
+          case 'int':
+          case 'integer':
+            valueType = 'type.INTEGER';
+          case 'date':
+            valueType = 'type.DATE';
+          case 'bool':
+          case 'boolean':
+            valueType = 'type.BOOLEAN';
+          case 'uuid':
+            valueType = 'type.UUID';
+          case 'text':
+            valueType = 'type.TEXT';
+          case 'json':
+            return 'type.JSON';
+          case 'string':
+          default:
+            valueType = 'type.STRING';
+        }*/
     }
 }
 exports.default = NodeJSModel;
