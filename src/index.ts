@@ -1,5 +1,6 @@
 import chalk from 'chalk';
 import fs from 'fs';
+import path from 'path';
 import yamljs from 'yamljs';
 import yargs from 'yargs';
 import Parser from './parser/parser';
@@ -30,6 +31,7 @@ if (argv.v) {
 }
 global.configuration = {};
 global.outDir = argv.path ? (argv.path as string) : process.cwd();
+global.appDir = path.dirname(require.main.filename);
 
 if (argv.config) {
   try {

@@ -1,0 +1,30 @@
+import { Sequelize, Dialect } from "sequelize"; <% for (const table of tables) {%> 
+import <%= table.name[0].toUpperCase() + table.name.slice(1)%>Model from "./models/<%= table.name %>"; <% }%>
+import config from "./config/index";
+
+const sequelize = new Sequelize(config.db_name,
+    config.db_username, config.db_password, {
+        host: "localhost",
+        dialect: config.db_type as Dialect,
+        logging: false
+    });
+
+sequelize
+    .authenticate()
+    .then(() => {
+        console.log("Connection has been established successfully.");
+    })
+    .catch(err => {
+        console.error("Unable to connect to the database:", err);
+    });
+<% for (const table of tables) {%> 
+const <%= table.name[0].toUpperCase() + table.name.slice(1)%> = <%= table.name[0].toUpperCase() + table.name.slice(1)%>Model(sequelize, Sequelize); <% }%>
+
+sequelize
+    .sync({
+        force: true
+    });
+
+export default {<% for (const table of tables) {%> 
+    <%= table.name[0].toUpperCase() + table.name.slice(1)%>,<% }%>
+}

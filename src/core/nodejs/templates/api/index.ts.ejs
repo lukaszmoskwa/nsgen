@@ -1,0 +1,8 @@
+import { Router } from 'express';<% for( let api of apis ) {  const apiName = api.endpoint[0].toUpperCase() + api.endpoint.slice(1);%>
+import <%= apiName%>Router from './<%= apiName.toLowerCase()%>';<% } %>
+
+const router = Router();
+<% for( let api of apis ) {  const apiName = api.endpoint[0].toUpperCase() + api.endpoint.slice(1);%>
+router.use('/<%= apiName.toLowerCase()%>', <%= apiName %>Router);<% } %>
+
+export default router;

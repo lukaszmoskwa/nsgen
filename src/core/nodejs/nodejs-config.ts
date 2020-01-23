@@ -20,12 +20,8 @@ class NodeJSConfig {
    * @param outDir Root directory for the new project
    */
   private static createDotEnv(db: IDBConfig) {
-    FileUtils.createFile('.env', function() {
-      for (const key of Object.keys(db)) {
-        this.write(`# ${key}\n`);
-        this.write(`DB_${key.toUpperCase()}=${db[key]}\n\n`);
-      }
-      this.end();
+    FileUtils.createFromTemplate('dotenv', '.env', {
+      db,
     });
   }
 
@@ -44,15 +40,8 @@ class NodeJSConfig {
    * @param outDir Root directory fo the new project
    */
   private static createConfigIndex(db: IDBConfig) {
-    FileUtils.createFile('config/index.ts', function() {
-      this.write('import * as dotenv from "dotenv";\n\n');
-      this.write('dotenv.config();\n\n');
-      this.write('export default {\n');
-      for (const key of Object.keys(db)) {
-        this.write(`\tdb_${key}: process.env.DB_${key.toUpperCase()},\n`);
-      }
-      this.write('}');
-      this.end();
+    FileUtils.createFromTemplate('config/index.ts', 'config/index.ts', {
+      db,
     });
   }
 }

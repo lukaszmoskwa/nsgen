@@ -1,0 +1,13 @@
+export default function <%= tableName %>Model(sequelize, type) {
+    return sequelize.define(
+        "<%= table.name %>", {
+            id: {
+                autoIncrement: true,
+                primaryKey: true,
+                type: type.INTEGER,
+            },<% for(const value of values) {%>
+            <%= value.name %>: {
+                type: <%= getValueType(value.class) %>,
+              }, <% } %>
+        }
+)}

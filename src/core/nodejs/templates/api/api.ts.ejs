@@ -1,0 +1,22 @@
+import { Request, Response, Router, Express } from 'express';
+
+const seq = require('../sequelize');<% if (api.model) { const modelName = api.model.name[0].toUpperCase() + api.model.name.slice(1); %>
+const <%= modelName %> = seq.default.<%= modelName %>;<% } %>
+const router = Router();
+<% for( const method of api.methods ) { %>
+router.<%= method.type%>('/', async (req: Request, res: Response) => {<% if(api.model) {%>
+    try {
+        const body = req.body;
+        <%= getMethodString(method.type, api.model) %>
+        return res.status(200).json(result);
+    } catch (err) {
+        console.log(err);
+        return res.status(400).json({
+            error: err,
+        });
+    }<% } else { %>
+    // Write your code here
+    return res.status(200).json({message: "http-Method not yet implemented"});<% }%>
+})
+<% } %>
+export default router;

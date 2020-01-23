@@ -1,0 +1,7 @@
+import * as dotenv from "dotenv";
+
+dotenv.config();
+
+export default {<% for(const key of Object.keys(db)) { %>
+    db_<%= key %>: process.env.DB_<%= key.toUpperCase() %>,<% } %>
+}

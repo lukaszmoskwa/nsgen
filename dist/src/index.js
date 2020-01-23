@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const chalk_1 = __importDefault(require("chalk"));
 const fs_1 = __importDefault(require("fs"));
+const path_1 = __importDefault(require("path"));
 const yamljs_1 = __importDefault(require("yamljs"));
 const yargs_1 = __importDefault(require("yargs"));
 const parser_1 = __importDefault(require("./parser/parser"));
@@ -30,6 +31,7 @@ if (argv.v) {
 }
 global.configuration = {};
 global.outDir = argv.path ? argv.path : process.cwd();
+global.appDir = path_1.default.dirname(require.main.filename);
 if (argv.config) {
     try {
         const filename = argv.config;
@@ -45,5 +47,4 @@ if (argv.config) {
 else {
     console.log(chalk_1.default.bold.red('Missing configuration file!'));
 }
-function validateConfigFile() { }
 //# sourceMappingURL=index.js.map
