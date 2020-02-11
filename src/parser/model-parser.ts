@@ -1,13 +1,16 @@
 import NodeJSModel from '../core/nodejs/nodejs-model';
 import { IModelTableConfig, IModelValueConfig } from '../utils';
+import Parser from './parser';
 
-class ModelParser {
-  public static parse(tables: IModelTableConfig[]): void {
+class ModelParser extends Parser {
+  public parserType = 'model';
+
+  public parse(tables: IModelTableConfig[]): void {
     global.configuration.model = tables;
     NodeJSModel.initializeFiles(tables);
   }
 
-  public static typeMap(configObject: any): IModelTableConfig[] {
+  public typeMap(configObject: any): IModelTableConfig[] {
     const finalTables: IModelTableConfig[] = [];
     const tableNames: string[] = Object.keys(configObject);
     for (const name of tableNames) {
@@ -25,6 +28,10 @@ class ModelParser {
       finalTables.push(table);
     }
     return finalTables;
+  }
+
+  public validate(configObject: any): boolean {
+    return true;
   }
 }
 

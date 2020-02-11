@@ -8,7 +8,7 @@ const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
 const yamljs_1 = __importDefault(require("yamljs"));
 const yargs_1 = __importDefault(require("yargs"));
-const parser_1 = __importDefault(require("./parser/parser"));
+const main_parser_1 = __importDefault(require("./parser/main-parser"));
 const utils_1 = require("./utils");
 // Get args from command line
 const argv = 
@@ -37,11 +37,12 @@ if (argv.config) {
         const filename = argv.config;
         if (fs_1.default.existsSync(filename)) {
             const configFile = yamljs_1.default.load(filename);
-            const parser = new parser_1.default(configFile);
+            const parser = new main_parser_1.default(configFile);
         }
     }
     catch (err) {
-        console.error(err);
+        // console.error(err);
+        console.log(chalk_1.default.bold.red(err));
     }
 }
 else {

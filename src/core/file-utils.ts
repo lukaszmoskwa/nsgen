@@ -21,7 +21,7 @@ class FileUtils {
       template + '.ejs',
     );
     ejs.renderFile(templatePath, params, null, (err, data) => {
-      console.log(err, data);
+      // console.log(err, data);
       this.createFile(filename, function() {
         this.write(data);
         this.end();

@@ -4,12 +4,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const nodejs_api_1 = __importDefault(require("../core/nodejs/nodejs-api"));
-class ApiParser {
-    static parse(apis) {
+const parser_1 = __importDefault(require("./parser"));
+class ApiParser extends parser_1.default {
+    constructor() {
+        super(...arguments);
+        this.parserType = 'api';
+    }
+    parse(apis) {
         global.configuration.api = apis;
         nodejs_api_1.default.initializeFiles(apis);
     }
-    static typeMap(configObject) {
+    typeMap(configObject) {
         const finalApis = [];
         const apiNames = Object.keys(configObject);
         for (const endpoint of apiNames) {
@@ -35,6 +40,9 @@ class ApiParser {
             finalApis.push(api);
         }
         return finalApis;
+    }
+    validate(configObject) {
+        return true;
     }
 }
 exports.default = ApiParser;

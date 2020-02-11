@@ -4,12 +4,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const nodejs_model_1 = __importDefault(require("../core/nodejs/nodejs-model"));
-class ModelParser {
-    static parse(tables) {
+const parser_1 = __importDefault(require("./parser"));
+class ModelParser extends parser_1.default {
+    constructor() {
+        super(...arguments);
+        this.parserType = 'model';
+    }
+    parse(tables) {
         global.configuration.model = tables;
         nodejs_model_1.default.initializeFiles(tables);
     }
-    static typeMap(configObject) {
+    typeMap(configObject) {
         const finalTables = [];
         const tableNames = Object.keys(configObject);
         for (const name of tableNames) {
@@ -27,6 +32,9 @@ class ModelParser {
             finalTables.push(table);
         }
         return finalTables;
+    }
+    validate(configObject) {
+        return true;
     }
 }
 exports.default = ModelParser;

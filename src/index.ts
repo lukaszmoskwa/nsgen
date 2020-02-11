@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import yamljs from 'yamljs';
 import yargs from 'yargs';
-import Parser from './parser/parser';
+import MainParser from './parser/main-parser';
 import { APP_VERSION, IConfigurationFile } from './utils';
 
 // Get args from command line
@@ -38,10 +38,11 @@ if (argv.config) {
     const filename: string = argv.config as string;
     if (fs.existsSync(filename)) {
       const configFile: IConfigurationFile = yamljs.load(filename);
-      const parser = new Parser(configFile);
+      const parser = new MainParser(configFile);
     }
   } catch (err) {
-    console.error(err);
+    // console.error(err);
+    console.log(chalk.bold.red(err));
   }
 } else {
   console.log(chalk.bold.red('Missing configuration file!'));

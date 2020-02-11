@@ -13,7 +13,7 @@ class FileUtils {
     static createFromTemplate(template, filename, params) {
         const templatePath = path_1.default.join(global.appDir, 'core/nodejs/templates', template + '.ejs');
         ejs_1.default.renderFile(templatePath, params, null, (err, data) => {
-            console.log(err, data);
+            // console.log(err, data);
             this.createFile(filename, function () {
                 this.write(data);
                 this.end();
