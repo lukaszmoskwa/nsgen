@@ -14,8 +14,8 @@ class ConfigParser extends Parser {
     return config;
   }
 
-  public validate(config: IProjectConfig): boolean {
-    return true;
+  public validate(config: IProjectConfig): void {
+    console.log('config parsing ok');
   }
 }
 

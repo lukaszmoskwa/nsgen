@@ -1,7 +1,7 @@
-import { packageDepencencies } from '../src/utils';
+import { packageDependencies } from '../src/utils';
 
-describe('faketest', function() {
-  it('test', function() {
-    expect(packageDepencencies.dotenv).toBe('^8.2.0');
+describe('faketest', () => {
+  it('test', () => {
+    expect(packageDependencies.dotenv).toBe('^8.2.0');
   });
 });

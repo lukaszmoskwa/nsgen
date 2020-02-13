@@ -1,5 +1,5 @@
 import { Sequelize, Dialect } from "sequelize"; <% for (const table of tables) {%> 
-import <%= table.name[0].toUpperCase() + table.name.slice(1)%>Model from "./models/<%= table.name %>"; <% }%>
+import <%= upperFirst(table.name) %>Model from "./models/<%= table.name %>"; <% }%>
 import config from "./config/index";
 
 const sequelize = new Sequelize(config.db_name,
@@ -9,22 +9,32 @@ const sequelize = new Sequelize(config.db_name,
         logging: false
     });
 
-sequelize
-    .authenticate()
-    .then(() => {
-        console.log("Connection has been established successfully.");
-    })
-    .catch(err => {
-        console.error("Unable to connect to the database:", err);
-    });
 <% for (const table of tables) {%> 
-const <%= table.name[0].toUpperCase() + table.name.slice(1)%> = <%= table.name[0].toUpperCase() + table.name.slice(1)%>Model(sequelize, Sequelize); <% }%>
+const <%= upperFirst(table.name) %> = <%= upperFirst(table.name) %>Model(sequelize, Sequelize); <% }%>
+<% for (const a of assoc11) {%> 
+<%= upperFirst(a[0]) %>.belongsTo(<%= upperFirst(a[1]) %>); <% }%>
+<% for (const a of assoc1n) {%> 
+<%= upperFirst(a[0]) %>.belongsTo(<%= upperFirst(a[1]) %>); <% }%>
+<% for (const a of assocnm) {%> 
+<%= upperFirst(a[0]) %>.belongsToMany(<%= upperFirst(a[1]) %>, {
+  through: '<%= upperFirst(a[0]) + upperFirst(a[1]) %>' 
+}); 
+<%= upperFirst(a[1]) %>.belongsToMany(<%= upperFirst(a[0]) %>, {
+  through: '<%= upperFirst(a[0]) + upperFirst(a[1]) %>' 
+});<% }%>
 
-sequelize
-    .sync({
-        force: true
-    });
+async function runSequelize() {
+  try{
+    await sequelize.authenticate();
+    console.log('Connection has been established successfully.');
+    await sequelize.sync({ force: true });
+  } catch(err) {
+      console.log('Connection failed, ' + err);
+  }
+}
+
+runSequelize();
 
 export default {<% for (const table of tables) {%> 
-    <%= table.name[0].toUpperCase() + table.name.slice(1)%>,<% }%>
+    <%= upperFirst(table.name) %>,<% }%>
 }

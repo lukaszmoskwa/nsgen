@@ -4,7 +4,7 @@ declare global {
   let outDir: string;
 }
 
-export const packageDepencencies = {
+export const packageDependencies = {
   dotenv: '^8.2.0',
   express: '^4.17.1',
   mysql2: '^2.0.1',
@@ -26,6 +26,15 @@ export const TSConfigObject = {
   },
   lib: ['es2015'],
 };
+
+export enum ModelParserErrors {
+  NO_MODEL = 'Missing model configuration',
+  ASSOC_AS_ARRAY = 'model.associations must be an object - found array',
+  NO_SRC_IN_TABLES = 'An association source is not declared in the model.tables object ',
+  NO_TRG_IN_TABLES = 'An association target is not declared in the model.tables object ',
+  WRONG_RELATION = 'A provided relation is not supported in model.associations',
+  TARGET_NOT_ARRAY = 'A provided target is not an array',
+}
 
 /**
  * Database configuration interface
@@ -71,6 +80,26 @@ export interface IApiMethodsConfig {
 }
 
 /**
+ * Association type
+ * @param type Type of the association [1:1], [1:n], [n:m]
+ * @param targets List of target for that type of association
+ */
+export interface IAssociation {
+  type: string;
+  targets: string[];
+}
+
+/**
+ * Associations between tables in model configuration
+ * @param source Name of the source of the association
+ * @param association Array of possibile associations
+ */
+export interface IModelAssociationConfig {
+  source: string;
+  association: IAssociation[];
+}
+
+/**
  * API configuration interface
  * @param endpoint Name of the endpoint
  * @param model Optional reference to an existing model name
@@ -82,6 +111,11 @@ export interface IApiConfig {
   methods: IApiMethodsConfig[];
 }
 
+export interface IModelConfig {
+  tables: IModelTableConfig[];
+  associations: IModelAssociationConfig[];
+}
+
 /**
  * The whole configuration object interface
  * @param config Project configuration object
@@ -90,6 +124,6 @@ export interface IApiConfig {
  */
 export interface IConfigurationFile {
   config?: IProjectConfig;
-  model?: IModelTableConfig[];
+  model?: IModelConfig;
   api?: IApiConfig[];
 }

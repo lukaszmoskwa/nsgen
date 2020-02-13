@@ -18,7 +18,7 @@ class ConfigParser extends parser_1.default {
         return config;
     }
     validate(config) {
-        return true;
+        console.log('config parsing ok');
     }
 }
 exports.default = ConfigParser;

@@ -31,7 +31,7 @@ class ApiParser extends parser_1.default {
                     }
                 }
             }
-            const model = global.configuration.model.find((el) => el.name === configObject[endpoint].model) || null;
+            const model = global.configuration.model.tables.find((el) => el.name === configObject[endpoint].model) || null;
             const api = {
                 endpoint,
                 methods,
@@ -42,7 +42,7 @@ class ApiParser extends parser_1.default {
         return finalApis;
     }
     validate(configObject) {
-        return true;
+        console.log('api pareser ok');
     }
 }
 exports.default = ApiParser;

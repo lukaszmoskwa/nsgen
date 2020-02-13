@@ -39,6 +39,8 @@ if (argv.config) {
     if (fs.existsSync(filename)) {
       const configFile: IConfigurationFile = yamljs.load(filename);
       const parser = new MainParser(configFile);
+      parser.validateConfiguration();
+      // parser.startParsing();
     }
   } catch (err) {
     // console.error(err);

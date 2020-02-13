@@ -21,7 +21,7 @@ abstract class Parser {
    * is in the right format
    * @param config Raw configuration object to validate
    */
-  public abstract validate(config?: any): boolean;
+  public abstract validate(config?: any): void;
 }
 
 export default Parser;

@@ -13,33 +13,36 @@ class MainParser {
         this.configObject = configObject;
         this.parsers = [];
         this.parsers = [new config_parser_1.default(), new model_parser_1.default(), new api_parser_1.default()];
-        if (!this.isValidConfiguration()) {
-            throw new Error('Configuration is not valid');
-        }
+    }
+    startParsing() {
         for (const p of this.parsers) {
             this.configObject[p.parserType] = p.typeMap(this.configObject[p.parserType]);
             p.parse(this.configObject[p.parserType]);
         }
-        this.initializeFiles(configObject.config);
+        this.initializeFiles(this.configObject.config);
+    }
+    validateConfiguration() {
+        for (const parser of this.parsers) {
+            parser.validate(this.configObject);
+        }
     }
     /**
      * Function used to check if the provided configuration file is valid
      * or not
      */
-    isValidConfiguration() {
-        return this.parsers
-            .map((el) => {
-            const isValid = el.validate();
-            if (!isValid) {
-                console.log('Error in configuration ' + el.parserType);
-            }
-            else {
-                console.log(el.parserType + ' configuration - correct');
-            }
-            return isValid;
+    /* private isValidConfiguration(): boolean {
+      return this.parsers
+        .map((el) => {
+          const isValid = el.validate();
+          if (!isValid) {
+            console.log('Error in configuration ' + el.parserType);
+          } else {
+            console.log(el.parserType + ' configuration - correct');
+          }
+          return isValid;
         })
-            .reduce((a, b) => a && b);
-    }
+        .reduce((a, b) => a && b);
+    } */
     initializeFiles(config) {
         // Create the package.json
         this.createPackageJSON(config);

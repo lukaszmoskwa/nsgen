@@ -14,23 +14,29 @@ class MainParser {
   private parsers: Parser[] = [];
   constructor(private configObject: IConfigurationFile) {
     this.parsers = [new ConfigParser(), new ModelParser(), new ApiParser()];
-    if (!this.isValidConfiguration()) {
-      throw new Error('Configuration is not valid');
-    }
+  }
+
+  public startParsing() {
     for (const p of this.parsers) {
       this.configObject[p.parserType] = p.typeMap(
         this.configObject[p.parserType],
       );
       p.parse(this.configObject[p.parserType]);
     }
-    this.initializeFiles(configObject.config);
+    this.initializeFiles(this.configObject.config);
+  }
+
+  public validateConfiguration(): void {
+    for (const parser of this.parsers) {
+      parser.validate(this.configObject);
+    }
   }
 
   /**
    * Function used to check if the provided configuration file is valid
    * or not
    */
-  private isValidConfiguration(): boolean {
+  /* private isValidConfiguration(): boolean {
     return this.parsers
       .map((el) => {
         const isValid = el.validate();
@@ -42,7 +48,7 @@ class MainParser {
         return isValid;
       })
       .reduce((a, b) => a && b);
-  }
+  } */
 
   private initializeFiles(config: IProjectConfig) {
     // Create the package.json

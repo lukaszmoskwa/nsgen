@@ -32,7 +32,7 @@ class ApiParser extends Parser {
         }
       }
       const model: IModelTableConfig =
-        global.configuration.model.find(
+        global.configuration.model.tables.find(
           (el) => el.name === configObject[endpoint].model,
         ) || null;
 
@@ -46,8 +46,8 @@ class ApiParser extends Parser {
     return finalApis;
   }
 
-  public validate(configObject: any): boolean {
-    return true;
+  public validate(configObject: any): void {
+    console.log('api pareser ok');
   }
 }
 

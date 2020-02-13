@@ -38,6 +38,8 @@ if (argv.config) {
         if (fs_1.default.existsSync(filename)) {
             const configFile = yamljs_1.default.load(filename);
             const parser = new main_parser_1.default(configFile);
+            parser.validateConfiguration();
+            // parser.startParsing();
         }
     }
     catch (err) {
