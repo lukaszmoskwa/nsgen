@@ -1,7 +1,34 @@
 import ModelParser from '../../src/parser/model-parser';
 import { ModelParserErrors } from '../../src/utils';
 
-describe('Throw exception tests', () => {
+describe('Model Tables - Throw exception tests', () => {
+  const modelTest = new ModelParser();
+  test('missing tables', () => {
+    const configObject: any = {};
+    configObject.model = {};
+    expect(() => {
+      modelTest.validate(configObject);
+    }).toThrowError(ModelParserErrors.NO_TABLES);
+  });
+  test('table as array', () => {
+    const configObject: any = {};
+    configObject.model = {};
+    configObject.model.tables = { user: {}, post: [] };
+    expect(() => {
+      modelTest.validate(configObject);
+    }).toThrowError(ModelParserErrors.TABLE_AS_ARRAY);
+  });
+  test('wrong table format', () => {
+    const configObject: any = {};
+    configObject.model = {};
+    configObject.model.tables = { user: { type: 'string' }, post: {} };
+    expect(() => {
+      modelTest.validate(configObject);
+    }).toThrowError(ModelParserErrors.WRONG_COLUMN_FORMAT);
+  });
+});
+
+describe('Model Association - Throw exception tests', () => {
   const modelTest = new ModelParser();
   test('missing model', () => {
     const configObject: any = {};

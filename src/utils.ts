@@ -27,8 +27,27 @@ export const TSConfigObject = {
   lib: ['es2015'],
 };
 
+export const DBSupportedDialects = [
+  'mysql',
+  'mariadb',
+  'sqlite',
+  'postgres',
+  'mssql',
+];
+
+export enum ConfigParserErrors {
+  NO_CONFIG = 'Missing project configuration',
+  NO_NAME = 'Missing project name',
+  NO_DB_CONFIG = 'Missing the Database configuration object',
+  NO_DIALECT = 'Missing the Database dialect',
+  NOT_SUPPORTED_DIALECT = 'The Database dialect selected is not supported',
+}
+
 export enum ModelParserErrors {
   NO_MODEL = 'Missing model configuration',
+  NO_TABLES = 'Missing tables configuration',
+  TABLE_AS_ARRAY = 'Expecting table to be an object - found array',
+  WRONG_COLUMN_FORMAT = 'Expecting column to be either a string or an object with type property',
   ASSOC_AS_ARRAY = 'model.associations must be an object - found array',
   NO_SRC_IN_TABLES = 'An association source is not declared in the model.tables object ',
   NO_TRG_IN_TABLES = 'An association target is not declared in the model.tables object ',

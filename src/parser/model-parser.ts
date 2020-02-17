@@ -24,7 +24,6 @@ class ModelParser extends Parser {
       tables: IModelTableConfig[];
       associations: IModelAssociationConfig[];
     } = { tables: [], associations: [] };
-    const associationsObject = configObject.associations;
     const tableNames: string[] = Object.keys(configObject.tables);
     // Tables configuration
     for (const name of tableNames) {
@@ -54,6 +53,27 @@ class ModelParser extends Parser {
     } else {
       throw new Error(ModelParserErrors.NO_MODEL);
     }
+    // Validate tables
+    if (!configObject.tables) {
+      throw new Error(ModelParserErrors.NO_TABLES);
+    }
+    // Table as array
+    for (const table of Object.keys(configObject.tables)) {
+      if (Array.isArray(configObject.tables[table])) {
+        throw new Error(ModelParserErrors.TABLE_AS_ARRAY);
+      }
+      // A column can be either a string or an object with the type and check properties
+      for (const column of Object.keys(configObject.tables[table])) {
+        if (
+          !configObject.tables[table][column].hasOwnProperty('type') ||
+          typeof configObject.tables[table][column] === 'string' ||
+          configObject.tables[table][column] instanceof String
+        ) {
+          throw new Error(ModelParserErrors.WRONG_COLUMN_FORMAT);
+        }
+      }
+    }
+
     // Validate association
     if (configObject.associations) {
       if (Array.isArray(configObject.associations)) {
