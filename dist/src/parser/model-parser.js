@@ -55,11 +55,14 @@ class ModelParser extends parser_1.default {
             if (Array.isArray(configObject.tables[table])) {
                 throw new Error(utils_1.ModelParserErrors.TABLE_AS_ARRAY);
             }
+            if (!Object.keys(configObject.tables[table]).length) {
+                throw new Error(utils_1.ModelParserErrors.EMPTY_COLUMN);
+            }
             // A column can be either a string or an object with the type and check properties
             for (const column of Object.keys(configObject.tables[table])) {
-                if (!configObject.tables[table][column].hasOwnProperty('type') ||
+                if (!(configObject.tables[table][column].hasOwnProperty('type') ||
                     typeof configObject.tables[table][column] === 'string' ||
-                    configObject.tables[table][column] instanceof String) {
+                    configObject.tables[table][column] instanceof String)) {
                     throw new Error(utils_1.ModelParserErrors.WRONG_COLUMN_FORMAT);
                 }
             }

@@ -14,7 +14,7 @@ const <%= upperFirst(table.name) %> = <%= upperFirst(table.name) %>Model(sequeli
 <% for (const a of assoc11) {%> 
 <%= upperFirst(a[0]) %>.belongsTo(<%= upperFirst(a[1]) %>); <% }%>
 <% for (const a of assoc1n) {%> 
-<%= upperFirst(a[0]) %>.belongsTo(<%= upperFirst(a[1]) %>); <% }%>
+<%= upperFirst(a[1]) %>.belongsTo(<%= upperFirst(a[0]) %>); <% }%>
 <% for (const a of assocnm) {%> 
 <%= upperFirst(a[0]) %>.belongsToMany(<%= upperFirst(a[1]) %>, {
   through: '<%= upperFirst(a[0]) + upperFirst(a[1]) %>' 

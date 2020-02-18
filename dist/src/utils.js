@@ -46,5 +46,6 @@ var ModelParserErrors;
     ModelParserErrors["NO_TRG_IN_TABLES"] = "An association target is not declared in the model.tables object ";
     ModelParserErrors["WRONG_RELATION"] = "A provided relation is not supported in model.associations";
     ModelParserErrors["TARGET_NOT_ARRAY"] = "A provided target is not an array";
+    ModelParserErrors["EMPTY_COLUMN"] = "The column provided was empty";
 })(ModelParserErrors = exports.ModelParserErrors || (exports.ModelParserErrors = {}));
 //# sourceMappingURL=utils.js.map

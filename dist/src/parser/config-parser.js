@@ -33,7 +33,6 @@ class ConfigParser extends parser_1.default {
             throw new Error(utils_1.ConfigParserErrors.NO_DIALECT);
         }
         if (!utils_1.DBSupportedDialects.includes(configObject.db.type)) {
-            console.log(configObject.db.type);
             throw new Error(utils_1.ConfigParserErrors.NOT_SUPPORTED_DIALECT);
         }
     }

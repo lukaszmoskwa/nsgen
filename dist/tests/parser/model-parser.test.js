@@ -5,6 +5,51 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const model_parser_1 = __importDefault(require("../../src/parser/model-parser"));
 const utils_1 = require("../../src/utils");
+describe('Model Configuration - Correct configurations', () => {
+    const modelTest = new model_parser_1.default();
+    test('test 1', () => {
+        const configObject = {
+            model: {
+                tables: {
+                    user: {
+                        password: {
+                            type: 'string',
+                        },
+                        username: 'string',
+                    },
+                },
+            },
+        };
+        expect(() => {
+            modelTest.validate(configObject);
+        }).not.toThrow();
+    });
+    test('test 2 - associations', () => {
+        const configObject = {
+            model: {
+                associations: {
+                    article: {
+                        '1->n': ['user'],
+                    },
+                },
+                tables: {
+                    article: {
+                        title: 'string',
+                    },
+                    user: {
+                        password: {
+                            type: 'string',
+                        },
+                        username: 'string',
+                    },
+                },
+            },
+        };
+        expect(() => {
+            modelTest.validate(configObject);
+        }).not.toThrow();
+    });
+});
 describe('Model Tables - Throw exception tests', () => {
     const modelTest = new model_parser_1.default();
     test('missing tables', () => {
@@ -17,7 +62,7 @@ describe('Model Tables - Throw exception tests', () => {
     test('table as array', () => {
         const configObject = {};
         configObject.model = {};
-        configObject.model.tables = { user: {}, post: [] };
+        configObject.model.tables = { user: { username: 'string' }, post: [] };
         expect(() => {
             modelTest.validate(configObject);
         }).toThrowError(utils_1.ModelParserErrors.TABLE_AS_ARRAY);
@@ -25,10 +70,10 @@ describe('Model Tables - Throw exception tests', () => {
     test('wrong table format', () => {
         const configObject = {};
         configObject.model = {};
-        configObject.model.tables = { user: { type: 'string' }, post: {} };
+        configObject.model.tables = { user: { username: 'string' }, post: {} };
         expect(() => {
             modelTest.validate(configObject);
-        }).toThrowError(utils_1.ModelParserErrors.WRONG_COLUMN_FORMAT);
+        }).toThrowError(utils_1.ModelParserErrors.EMPTY_COLUMN);
     });
 });
 describe('Model Association - Throw exception tests', () => {
@@ -49,7 +94,7 @@ describe('Model Association - Throw exception tests', () => {
     });
     test('association source is not in table', () => {
         const configObject = {
-            model: { tables: {}, associations: { user: {} } },
+            model: { tables: {}, associations: { user: { username: 'string' } } },
         };
         expect(() => {
             modelTest.validate(configObject);
@@ -59,7 +104,7 @@ describe('Model Association - Throw exception tests', () => {
         const configObject = {
             model: {
                 associations: { user: { '1-->n': 'test' } },
-                tables: { user: {} },
+                tables: { user: { username: 'string' } },
             },
         };
         expect(() => {
@@ -70,7 +115,7 @@ describe('Model Association - Throw exception tests', () => {
         const configObject = {
             model: {
                 associations: { user: { '1->n': 'test' } },
-                tables: { user: {} },
+                tables: { user: { username: 'string' } },
             },
         };
         expect(() => {
@@ -81,7 +126,7 @@ describe('Model Association - Throw exception tests', () => {
         const configObject = {
             model: {
                 associations: { user: { '1->n': ['user', 'test'] } },
-                tables: { user: {} },
+                tables: { user: { username: 'string' } },
             },
         };
         expect(() => {

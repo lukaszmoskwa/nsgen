@@ -40,7 +40,7 @@ if (argv.config) {
       const configFile: IConfigurationFile = yamljs.load(filename);
       const parser = new MainParser(configFile);
       parser.validateConfiguration();
-      // parser.startParsing();
+      parser.startParsing();
     }
   } catch (err) {
     // console.error(err);

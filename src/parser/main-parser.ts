@@ -32,24 +32,6 @@ class MainParser {
     }
   }
 
-  /**
-   * Function used to check if the provided configuration file is valid
-   * or not
-   */
-  /* private isValidConfiguration(): boolean {
-    return this.parsers
-      .map((el) => {
-        const isValid = el.validate();
-        if (!isValid) {
-          console.log('Error in configuration ' + el.parserType);
-        } else {
-          console.log(el.parserType + ' configuration - correct');
-        }
-        return isValid;
-      })
-      .reduce((a, b) => a && b);
-  } */
-
   private initializeFiles(config: IProjectConfig) {
     // Create the package.json
     this.createPackageJSON(config);

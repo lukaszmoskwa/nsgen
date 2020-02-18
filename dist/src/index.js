@@ -39,7 +39,7 @@ if (argv.config) {
             const configFile = yamljs_1.default.load(filename);
             const parser = new main_parser_1.default(configFile);
             parser.validateConfiguration();
-            // parser.startParsing();
+            parser.startParsing();
         }
     }
     catch (err) {
