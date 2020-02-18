@@ -53,6 +53,7 @@ export enum ModelParserErrors {
   NO_TRG_IN_TABLES = 'An association target is not declared in the model.tables object ',
   WRONG_RELATION = 'A provided relation is not supported in model.associations',
   TARGET_NOT_ARRAY = 'A provided target is not an array',
+  EMPTY_COLUMN = 'The column provided was empty',
 }
 
 /**

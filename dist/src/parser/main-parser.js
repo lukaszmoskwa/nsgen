@@ -59,7 +59,7 @@ class MainParser {
      */
     createPackageJSON(config) {
         const packageObject = {
-            dependencies: utils_1.packageDepencencies,
+            dependencies: utils_1.packageDependencies,
             description: config.description || '',
             name: config.name || '',
             version: '1.0.0',

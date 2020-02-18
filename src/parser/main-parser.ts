@@ -3,7 +3,7 @@ import {
   gitignoreList,
   IConfigurationFile,
   IProjectConfig,
-  packageDepencencies,
+  packageDependencies,
 } from '../utils';
 import ApiParser from './api-parser';
 import ConfigParser from './config-parser';
@@ -67,7 +67,7 @@ class MainParser {
    */
   private createPackageJSON(config: IProjectConfig): void {
     const packageObject = {
-      dependencies: packageDepencencies,
+      dependencies: packageDependencies,
       description: config.description || '',
       name: config.name || '',
       version: '1.0.0',

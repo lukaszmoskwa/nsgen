@@ -32,7 +32,7 @@ class ConfigParser extends Parser {
     if (!configObject.db.type) {
       throw new Error(ConfigParserErrors.NO_DIALECT);
     }
-    if (!DBSupportedDialects.includes(configObject.db.dialect)) {
+    if (!DBSupportedDialects.includes(configObject.db.type)) {
       throw new Error(ConfigParserErrors.NOT_SUPPORTED_DIALECT);
     }
   }
